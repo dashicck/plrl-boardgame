@@ -104,7 +104,15 @@ button,.button,.buy,.submit-order{border-radius:8px!important}
 /* Small, responsive motion to make the landing page feel tactile. */
 .hero-copy .button{position:relative;isolation:isolate;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease}
 .hero-copy .button:before{position:absolute;content:'';position:absolute;inset:-35% auto -35% -75%;width:42%;pointer-events:none;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.48),transparent)}
-@media(hover:hover){.hero-copy .button:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.24);background-color:#d5f35a}.hero-copy .button:hover:before{animation:button-sheen .72s ease forwards}.product-card:hover .arrow{transform:translate(3px,-3px)}}
+@media(hover:hover){
+    .product-card:hover .catalog-box--large{
+        transform:rotateY(23deg) rotateX(2deg) translateY(-7px);
+    }
+
+    .product-card:hover .catalog-box--small{
+        transform:rotateY(23deg) rotateX(2deg) translateY(-7px);
+    }
+}
 .hero-copy .button:active{transform:translateY(-1px) scale(.985);box-shadow:0 4px 10px rgba(0,0,0,.2)}
 .hero-copy .button:focus-visible{outline:3px solid #fff;outline-offset:4px}
 .product-card .arrow{transition:transform .2s ease}
