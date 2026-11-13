@@ -1,0 +1,601 @@
+.gallery-main>img{display:block;width:100%;height:100%;object-fit:contain}.thumbs{display:flex;gap:10px;margin-top:12px}.photo-thumb{width:86px;height:72px;padding:4px;background:var(--paper);border:1px solid var(--line);cursor:pointer;overflow:hidden}.photo-thumb.active{border:2px solid var(--green)}.photo-thumb img{display:block;width:100%;height:100%;object-fit:contain}.pdp-lead{font-size:14px;line-height:1.8}
+.gallery-main{position:relative;width:100%;height:min(56vh,520px);min-height:300px;aspect-ratio:4/5;overflow:hidden;background:var(--cream);display:grid;place-items:center}.gallery-main>img{width:100%;height:100%;object-fit:contain;object-position:center}.thumbs{display:flex;gap:10px;margin-top:12px}.photo-thumb{box-sizing:border-box;flex:0 0 76px;width:76px;height:95px;aspect-ratio:4/5;overflow:hidden}.photo-thumb img{width:100%;height:100%;object-fit:contain}.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:56px;border:0;border-radius:4px;background:#18261fbb;color:#fff;font:36px/1 Arial;cursor:pointer;display:grid;place-items:center;z-index:2;transition:background .15s}.gallery-arrow:hover{background:#18261fee}.gallery-prev{left:12px}.gallery-next{right:12px}
+.card-product-image{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+
+/* Keep the full product photo visible inside the shared gallery frame. */
+.gallery-main>img{width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important}
+
+
+/* Portrait gallery stage keeps complete box and board photos in view. */
+.gallery-main{width:min(100%,520px)!important;height:auto!important;min-height:0!important;aspect-ratio:4/5!important;max-height:72vh!important;margin-inline:auto}
+.gallery-main>img{max-width:100%!important;max-height:100%!important;width:auto!important;height:auto!important;object-fit:contain!important}
+@media(max-width:760px){.gallery-main{width:100%!important;max-height:none!important;aspect-ratio:4/5!important}}
+
+
+/* Explicit dimensions prevent the gallery from stretching into a landscape frame. */
+.gallery-main{box-sizing:border-box!important;width:100%!important;max-width:520px!important;min-width:0!important;height:650px!important;min-height:0!important;max-height:72vh!important;aspect-ratio:4/5!important;margin-inline:0!important;overflow:hidden!important}
+.gallery-main>img{display:block!important;width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+@media(max-width:760px){.gallery-main{max-width:100%!important;height:min(125vw,560px)!important;max-height:none!important;aspect-ratio:4/5!important;margin-inline:auto!important}}
+
+
+/* Fluid gallery: follow the available column width at every browser zoom. */
+.gallery-main{box-sizing:border-box!important;display:grid!important;position:relative!important;width:100%!important;max-width:none!important;min-width:0!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:4/5!important;overflow:hidden!important;margin:0!important;background:var(--cream)!important}
+.gallery-main>img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important}
+@media(max-width:760px){.gallery-main{width:100%!important;aspect-ratio:4/5!important;height:auto!important}}
+
+
+/* Slightly reduce the gallery on wide layouts while keeping mobile full width. */
+@media(min-width:761px){.gallery-main{width:90%!important;justify-self:start}}
+@media(max-width:760px){.gallery-main{width:100%!important}}
+
+
+/* PLRL-style rounded controls throughout the prototype. */
+button{border-radius:8px!important}
+
+
+/* Product detail gallery — static 3D box artwork matching the landing-page cards. */
+.pdp-gallery{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  place-items:stretch!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio: 1 / 1.04!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  border:1px solid #ded8cb;
+  box-shadow:8px 8px 0 #b98a61,0 16px 32px rgba(32,39,29,.12);
+}
+.pdp-gallery-slide{grid-area:1/1;width:100%;height:100%;min-width:0;min-height:0}
+.pdp-gallery-slide[hidden]{display:none!important}
+.pdp-box-panel{
+  width:100%;height:100%;display:grid;place-items:center;overflow:hidden;
+  background:#e98243;padding:clamp(24px,5vw,54px);
+}
+.pdp-box-panel--large{background:#315789}
+.pdp-box-panel--small{background:#e98243}
+.pdp-box-stage{
+  display:grid;place-items:center;width:100%;height:100%;
+  perspective:1100px;transform-style:preserve-3d;
+  filter:drop-shadow(10px 18px 12px rgba(12,18,15,.32));
+}
+.pdp-box-stage .catalog-box{position:relative;transform-style:preserve-3d;transition:none!important}
+.pdp-box-stage .catalog-box--large{
+  --catalog-width:clamp(190px,22vw,270px);
+  --catalog-height:clamp(255px,29vw,355px);
+  --catalog-depth:clamp(46px,5.2vw,66px);
+  width:var(--catalog-width);height:var(--catalog-height);
+  transform:rotateY(24deg) rotateX(1deg)!important;
+}
+.pdp-box-stage .catalog-box--small{
+  --catalog-width:clamp(130px,16vw,190px);
+  --catalog-height:clamp(180px,22vw,260px);
+  --catalog-depth:clamp(30px,3.6vw,42px);
+  width:var(--catalog-width);height:var(--catalog-height);
+  transform:rotateY(17deg) rotateX(1deg)!important;
+}
+.pdp-box-stage .catalog-box-front,
+.pdp-box-stage .catalog-box-spine,
+.pdp-box-stage .catalog-box-top{
+  position:absolute;top:50%;left:50%;backface-visibility:hidden;
+  background-color:#171615;background-repeat:no-repeat;background-size:100% 100%;
+}
+.pdp-box-stage .catalog-box--large .catalog-box-front{
+  width:var(--catalog-width);height:var(--catalog-height);
+  background-image:url('assets/large-box-front.png');
+  transform:translate(-50%,-50%) translateZ(calc(var(--catalog-depth)/2));
+}
+.pdp-box-stage .catalog-box--large .catalog-box-spine{
+  width:var(--catalog-depth);height:var(--catalog-height);
+  background-image:url('assets/large-box-spine.png');
+  transform:translate(-50%,-50%) rotateY(-90deg) translateZ(calc(var(--catalog-width)/2));
+}
+.pdp-box-stage .catalog-box--large .catalog-box-top{
+  width:var(--catalog-width);height:var(--catalog-depth);
+  background-image:url('assets/large-box-top.png');
+  transform:translate(-50%,-50%) rotateX(90deg) translateZ(calc(var(--catalog-height)/2));
+}
+.pdp-box-stage .catalog-box--small .catalog-box-front{
+  width:var(--catalog-width);height:var(--catalog-height);
+  background-image:url('assets/small-box-front-print-hd.png');
+  transform:translate(-50%,-50%) translateZ(calc(var(--catalog-depth)/2));
+}
+.pdp-box-stage .catalog-box--small .catalog-box-spine{
+  width:var(--catalog-depth);height:var(--catalog-height);
+  background-image:url('assets/small-box-side-print-hd.png');
+  transform:translate(-50%,-50%) rotateY(-90deg) translateZ(calc(var(--catalog-width)/2));
+}
+.pdp-box-stage .catalog-box--small .catalog-box-top{
+  width:var(--catalog-width);height:var(--catalog-depth);
+  background-image:url('assets/small-box-top-print.png');
+  transform:translate(-50%,-50%) rotateX(90deg) translateZ(calc(var(--catalog-height)/2));
+}
+.pdp-gallery-photo{display:grid;place-items:center;background:#f1ede3;padding:5%}
+.pdp-gallery-photo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.pdp-gallery .gallery-arrow{
+  top:auto;bottom:18px;transform:none;width:42px;height:42px;
+  border:1px solid rgba(24,38,31,.28);border-radius:50%;
+  background:#fbf5e8;color:#1b2922;font:500 25px/1 Manrope,Arial,sans-serif;
+  box-shadow:0 3px 0 rgba(24,38,31,.12);opacity:.9;
+}
+.pdp-gallery .gallery-arrow:hover{background:#c9ed46;color:#18261f}
+.pdp-gallery .gallery-prev{left:18px}
+.pdp-gallery .gallery-next{right:18px}
+.pdp-thumbs{display:flex;gap:10px;margin-top:14px}
+.pdp-thumb{
+  position:relative;display:grid;place-items:center;flex:0 0 74px;
+  width:74px;height:74px;padding:7px;background:#f7f1e5;
+  border:1px solid #d6d2c8;border-radius:0;overflow:hidden;
+}
+.pdp-thumb.active{border:2px solid #234b39;box-shadow:3px 3px 0 #b98a61}
+.pdp-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+.pdp-thumb-box{position:relative;display:block;width:24px;height:40px;background:#171615;transform:perspective(100px) rotateY(18deg);box-shadow:4px 3px 0 #080a09}
+.pdp-thumb-box i,.pdp-thumb-box b,.pdp-thumb-box em{position:absolute;display:block;inset:0;background-size:100% 100%;background-repeat:no-repeat}
+.pdp-thumb-box i{background-image:url('assets/large-box-front.png')}
+.pdp-thumb-box.catalog-box--small i{background-image:url('assets/small-box-front-print-hd.png')}
+.pdp-thumb-box b{left:auto;width:7px;transform:skewY(-25deg);transform-origin:left;background:#111}
+.pdp-thumb-box em{display:none}
+.pdp-gallery-slide:not([hidden]){animation:none!important}
+@media(max-width:760px){
+  .pdp-gallery{aspect-ratio:4/5!important}
+  .pdp-box-stage .catalog-box--large{--catalog-width:clamp(180px,52vw,235px);--catalog-height:clamp(245px,70vw,315px);--catalog-depth:44px}
+  .pdp-box-stage .catalog-box--small{--catalog-width:clamp(122px,38vw,160px);--catalog-height:clamp(170px,52vw,220px);--catalog-depth:30px}
+  .pdp-gallery .gallery-arrow{width:38px;height:38px;bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){.pdp-gallery *{transition:none!important}}
+
+
+/* Product-page typography and controls aligned with the landing page. */
+.pdp h1,.pdp h2,.pdp h3,.price{font-family:Oswald,Impact,sans-serif}
+.pdp p,.pdp button,.pdp input,.pdp a,.pdp label{font-family:Manrope,Arial,sans-serif}
+.pdp h1{font-weight:700;letter-spacing:-.025em;line-height:.98;color:#18261f}
+.pdp .pdp-lead{font-size:15px;line-height:1.8;color:#6f776f}
+.pdp .price{font-size:clamp(30px,3vw,38px);font-weight:600;color:#18261f}
+.pdp .buyrow{gap:14px;flex-wrap:wrap}
+.pdp .quantity{height:50px;border:1px solid #d6d2c8;background:#fffdf8}
+.pdp .quantity button{width:42px;height:48px;color:#18261f;font-size:20px;font-weight:700}
+.pdp .quantity input{width:42px;height:42px;background:transparent;color:#18261f;font-weight:800}
+.pdp .buy{
+  min-height:50px;height:auto;padding:0 25px;
+  border:2px solid #18261f;border-radius:12px!important;
+  background:#c9ed46;color:#18261f;
+  font-size:13px;font-weight:800;letter-spacing:.005em;
+  box-shadow:0 5px 0 #b98a61;
+}
+.pdp .buy.secondary{
+  min-width:220px;background:#234b39;color:#fff;
+  border-color:#234b39;box-shadow:0 5px 0 #b98a61;
+}
+@media(hover:hover){
+  .pdp .buy:hover{transform:translateY(-2px);background:#d5f35a;box-shadow:0 7px 0 #b98a61}
+  .pdp .buy.secondary:hover{background:#315f49;box-shadow:0 7px 0 #b98a61}
+}
+.pdp .buy:active{transform:translateY(2px);box-shadow:0 2px 0 #b98a61}
+.pdp .buy:focus-visible{outline:3px solid #ef8739;outline-offset:4px}
+.pdp .delivery-note{font-size:12px;line-height:1.8;color:#73796f}
+.pdp .text-link{color:#234b39!important;border-color:#c9ed46}
+@media(max-width:760px){
+  .pdp .pdp-lead{font-size:14px}
+  .pdp .buyrow{align-items:stretch}
+  .pdp .buy{flex:1 1 180px}
+  .pdp .buy.secondary{width:100%}
+}
+
+
+/* === Product gallery frame: match the landing-page product cards === */
+.pdp-gallery{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-width:100%!important;
+  aspect-ratio:1 / 1.04!important;
+  padding:18px!important;
+  overflow:hidden!important;
+  background:#fff5e5!important;
+  border:2px solid #1b2922!important;
+  border-radius:22px!important;
+  box-shadow:8px 8px 0 #b98a61,0 16px 32px rgba(32,39,29,.14)!important;
+}
+
+.pdp-gallery-slide{
+  grid-area:1 / 1!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  border-radius:14px!important;
+}
+
+.pdp-gallery-slide[hidden]{display:none!important}
+
+.pdp-box-panel{
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:clamp(18px,3vw,38px)!important;
+  overflow:hidden!important;
+  border-radius:14px!important;
+}
+
+.pdp-gallery-photo{
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  padding:clamp(18px,3vw,38px)!important;
+  border-radius:14px!important;
+  background:#f1ede3!important;
+}
+
+.pdp-gallery-photo img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* Compact, quiet gallery navigation in the same visual language as the site. */
+.pdp-gallery .gallery-arrow{
+  top:auto!important;
+  bottom:30px!important;
+  transform:none!important;
+  display:grid!important;
+  place-items:center!important;
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border:1px solid rgba(27,41,34,.22)!important;
+  border-radius:50%!important;
+  background:rgba(255,245,229,.92)!important;
+  color:#1b2922!important;
+  box-shadow:0 3px 0 rgba(185,138,97,.5)!important;
+  font:500 22px/1 Manrope,Arial,sans-serif!important;
+  opacity:.82!important;
+  transition:opacity .18s ease,background .18s ease,transform .18s ease!important;
+}
+
+.pdp-gallery .gallery-arrow:hover{
+  opacity:1!important;
+  background:#c9ed46!important;
+}
+
+.pdp-gallery .gallery-prev{left:30px!important}
+.pdp-gallery .gallery-next{right:30px!important}
+
+.pdp-thumbs{gap:10px!important;margin-top:16px!important}
+.pdp-thumb{
+  border-radius:10px!important;
+  background:#fff5e5!important;
+}
+.pdp-thumb.active{
+  border:2px solid #1b2922!important;
+  box-shadow:4px 4px 0 #b98a61!important;
+}
+
+@media(max-width:760px){
+  .pdp-gallery{
+    aspect-ratio:4 / 5!important;
+    padding:12px!important;
+    border-radius:18px!important;
+  }
+  .pdp-gallery-slide,
+  .pdp-box-panel,
+  .pdp-gallery-photo{border-radius:11px!important}
+  .pdp-gallery .gallery-arrow{
+    width:34px!important;
+    height:34px!important;
+    bottom:22px!important;
+    font-size:20px!important;
+  }
+  .pdp-gallery .gallery-prev{left:22px!important}
+  .pdp-gallery .gallery-next{right:22px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pdp-gallery .gallery-arrow{transition:none!important}
+}
+
+
+/* === Product gallery arrows: vertically centered === */
+.pdp-gallery .gallery-arrow{
+  top:50%!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+}
+.pdp-gallery .gallery-arrow:hover{
+  transform:translateY(-50%) scale(1.04)!important;
+}
+
+/* === PRODUCT TABS: exact step-card frame, with only the top edge removed === */
+.tabs-wrap .tabs{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:18px!important;
+  border-bottom:1px solid var(--line)!important;
+  padding:8px 0 14px!important;
+}
+
+.tabs-wrap .tab{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:visible!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:58px!important;
+  padding:12px 26px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#737b72!important;
+  font:700 13px/1.2 Manrope,Arial,sans-serif!important;
+  box-shadow:none!important;
+  z-index:0!important;
+}
+
+/* Real frame: same 2px stroke and bottom corner radius as the step cards.
+   Only the top horizontal border is omitted. */
+.tabs-wrap .tab::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  bottom:0!important;
+  border:2px solid #b9c0b7!important;
+  border-top:0!important;
+  border-radius:0 0 20px 20px!important;
+  background:transparent!important;
+  pointer-events:none!important;
+}
+
+/* Offset shadow is a thick U-shaped strip, like the solid card shadow
+   on the landing page, not a thin second outline. */
+.tabs-wrap .tab::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:-2!important;
+  left:0!important;
+  right:0!important;
+  top:0!important;
+  bottom:0!important;
+  border:12px solid transparent!important;
+  border-top:0!important;
+  border-left-color:#b98a61!important;
+  border-right-color:#b98a61!important;
+  border-bottom-color:#b98a61!important;
+  border-radius:0 0 20px 20px!important;
+  background:transparent!important;
+  transform:translate(8px,10px)!important;
+  pointer-events:none!important;
+}
+
+/* Active step-card state: dark green frame and warm orange-brown shadow. */
+.tabs-wrap .tab.active{
+  color:#18261f!important;
+  background:transparent!important;
+}
+.tabs-wrap .tab.active::before{
+  border-color:#18261f!important;
+  border-top:0!important;
+}
+.tabs-wrap .tab.active::after{
+  border-top:0!important;
+  border-left-color:#d98743!important;
+  border-right-color:#d98743!important;
+  border-bottom-color:#d98743!important;
+}
+
+/* Inactive state: muted grey-green frame and softer brown shadow. */
+.tabs-wrap .tab:not(.active){
+  color:#737b72!important;
+}
+.tabs-wrap .tab:not(.active)::before{
+  border-color:#b9c0b7!important;
+  border-top:0!important;
+}
+.tabs-wrap .tab:not(.active)::after{
+  border-top:0!important;
+  border-left-color:#d8c5b1!important;
+  border-right-color:#d8c5b1!important;
+  border-bottom-color:#d8c5b1!important;
+}
+
+.tabs-wrap .tab:hover:not(.active){color:#18261f!important}
+.tabs-wrap .tab:focus-visible{
+  outline:2px solid #234b39!important;
+  outline-offset:5px!important;
+}
+
+@media(max-width:760px){
+  .tabs-wrap .tabs{gap:12px!important;padding-bottom:12px!important}
+  .tabs-wrap .tab{min-height:50px!important;padding:10px 16px!important;font-size:11px!important}
+  .tabs-wrap .tab::before{border-radius:0 0 15px 15px!important}
+  .tabs-wrap .tab::after{
+    border-width:9px!important;
+    border-top:0!important;
+    border-radius:0 0 15px 15px!important;
+    transform:translate(6px,8px)!important;
+  }
+}
+
+
+/* === FINAL FIX: one open-top U frame with a matching offset shadow === */
+.tabs-wrap .tabs{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:18px!important;
+  border-bottom:1px solid var(--line)!important;
+  padding:8px 0 14px!important;
+}
+
+.tabs-wrap .tab{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:visible!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:58px!important;
+  padding:12px 26px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font:700 13px/1.2 Manrope,Arial,sans-serif!important;
+  z-index:0!important;
+}
+
+/* Single U-shaped outline. The top edge is intentionally absent.
+   drop-shadow follows this exact outline, so no separate square bars appear. */
+.tabs-wrap .tab::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  inset:0!important;
+  border:2px solid #b9c0b7!important;
+  border-top:0!important;
+  border-radius:0 0 20px 20px!important;
+  background:transparent!important;
+  filter:drop-shadow(8px 10px 0 #d8c5b1)!important;
+  pointer-events:none!important;
+}
+
+/* The second pseudo-element is deliberately disabled:
+   the shadow is generated by drop-shadow on the U-shaped outline itself. */
+.tabs-wrap .tab::after{
+  content:none!important;
+  display:none!important;
+}
+
+.tabs-wrap .tab{
+  color:#737b72!important;
+}
+.tabs-wrap .tab.active{
+  color:#18261f!important;
+}
+.tabs-wrap .tab.active::before{
+  border-color:#18261f!important;
+  border-top:0!important;
+  filter:drop-shadow(8px 10px 0 #d98743)!important;
+}
+.tabs-wrap .tab:not(.active)::before{
+  border-color:#b9c0b7!important;
+  border-top:0!important;
+  filter:drop-shadow(8px 10px 0 #d8c5b1)!important;
+}
+.tabs-wrap .tab:hover:not(.active){color:#18261f!important}
+.tabs-wrap .tab:focus-visible{
+  outline:2px solid #234b39!important;
+  outline-offset:5px!important;
+}
+
+@media(max-width:760px){
+  .tabs-wrap .tabs{gap:12px!important;padding-bottom:12px!important}
+  .tabs-wrap .tab{min-height:50px!important;padding:10px 16px!important;font-size:11px!important}
+  .tabs-wrap .tab::before{border-radius:0 0 15px 15px!important}
+}
+
+
+/* === Product tabs: exact prep-step card treatment from the landing page === */
+.tabs-wrap .tabs{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:18px!important;
+  border-bottom:1px solid var(--line)!important;
+  padding:8px 0 18px!important;
+}
+
+.tabs-wrap .tab{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:58px!important;
+  padding:14px 24px!important;
+  border:2px solid #b8bdb5!important;
+  border-radius:16px!important;
+  background:#fffaf1!important;
+  color:#737b72!important;
+  box-shadow:8px 8px 0 #b98a61!important;
+  font:700 13px/1.2 Manrope,Arial,sans-serif!important;
+  text-decoration:none!important;
+  transform:none!important;
+  transition:transform .24s ease,box-shadow .24s ease,background-color .24s ease,border-color .24s ease!important;
+}
+
+/* Disable all experimental pseudo-frame and offset-bar versions. */
+.tabs-wrap .tab::before,
+.tabs-wrap .tab::after{
+  content:none!important;
+  display:none!important;
+}
+
+.tabs-wrap .tab:hover:not(.active){
+  border-color:#8d958b!important;
+  background:#fffaf1!important;
+  color:#18261f!important;
+  box-shadow:10px 10px 0 #b98a61!important;
+  transform:translate(-2px,-2px)!important;
+}
+
+.tabs-wrap .tab.active{
+  border:2px solid #182a21!important;
+  border-radius:16px!important;
+  background:#fffdf7!important;
+  color:#18261f!important;
+  box-shadow:9px 9px 0 #d98a4f,0 10px 22px rgba(24,42,33,.10)!important;
+  transform:none!important;
+}
+
+.tabs-wrap .tab.active:hover{
+  border-color:#182a21!important;
+  box-shadow:11px 11px 0 #d98a4f,0 14px 26px rgba(24,42,33,.13)!important;
+  transform:translate(-2px,-2px)!important;
+}
+
+.tabs-wrap .tab:focus-visible{
+  outline:3px solid rgba(241,135,54,.35)!important;
+  outline-offset:3px!important;
+}
+
+@media(max-width:760px){
+  .tabs-wrap .tabs{
+    gap:12px!important;
+    padding-bottom:16px!important;
+  }
+  .tabs-wrap .tab{
+    min-height:50px!important;
+    padding:11px 16px!important;
+    font-size:11px!important;
+    border-radius:13px!important;
+  }
+  .tabs-wrap .tab.active{
+    border-radius:13px!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .tabs-wrap .tab{transition:none!important}
+}
+
+
+/* Remove the divider above the delivery/payment note on product pages. */
+.pdp .delivery-note{border-top:0!important}

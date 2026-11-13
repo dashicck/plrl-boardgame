@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оформление заказа – ПЛРЛ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="order">
+    <h1>Оформление заказа</h1>
+    <div id="checkout-cart" aria-live="polite"></div>
+    <form id="order-form" class="form-grid">
+      <label>Имя
+        <input name="name" required maxlength="100" autocomplete="name" placeholder="Как к вам обращаться">
+      </label>
+      <label>Телефон
+        <input name="phone" required type="tel" autocomplete="tel" placeholder="+7 ___ ___ __ __">
+      </label>
+      <label class="wide">Электронная почта
+        <input name="email" type="email" autocomplete="email" placeholder="name@example.ru">
+      </label>
+      <label class="wide">Адрес доставки
+        <textarea name="address" rows="3" required autocomplete="street-address" placeholder="Город, улица, дом, квартира или адрес ПВЗ СДЭК"></textarea>
+      </label>
+      <div class="payment">
+        Доставка — 199 ₽
+        <br><span class="muted">Стоимость доставки фиксированная, независимо от направления и количества товаров. Способ оплаты уточняется.</span>
+      </div>
+      <button class="submit-order" type="submit">Оформить заказ</button>
+    </form>
+    <p id="order-notice" class="order-notice" role="status" hidden></p>
+  </main>
+  <script src="product.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

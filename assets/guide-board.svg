@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 675">
+ <defs>
+  <linearGradient id="grass" x2="0" y2="1"><stop stop-color="#65b93c"/><stop offset=".5" stop-color="#43a52d"/><stop offset="1" stop-color="#328b28"/></linearGradient>
+  <pattern id="turf" width="28" height="24" patternUnits="userSpaceOnUse"><rect width="28" height="24" fill="url(#grass)"/><path d="M3 21l4-8m3 9 2-10m4 7 5-10m2 12 2-7M0 6l4-4m8 4 3-5m8 5 4-4" stroke="#b5d879" stroke-width="1.4" opacity=".28"/><circle cx="8" cy="7" r="1.5" fill="#d4e899" opacity=".25"/><circle cx="21" cy="17" r="1" fill="#164e22" opacity=".22"/></pattern>
+  <linearGradient id="red" x2="0" y2="1"><stop stop-color="#f04436"/><stop offset="1" stop-color="#c8232c"/></linearGradient>
+  <linearGradient id="blue" x2="0" y2="1"><stop stop-color="#2788e5"/><stop offset="1" stop-color="#1763bf"/></linearGradient>
+ </defs>
+ <rect x="3" y="3" width="894" height="669" rx="22" fill="#f3eedf"/>
+ <rect x="15" y="15" width="870" height="645" rx="17" fill="url(#turf)"/>
+ <!-- Colored team and scoring lanes -->
+ <path d="M15 15h92v630H15z" fill="url(#red)"/><path d="M793 15h92v630h-92z" fill="url(#blue)"/>
+ <path d="M107 15h686v62H107z" fill="#17412f"/><path d="M107 598h686v62H107z" fill="#17412f"/>
+ <path d="M107 15h171v62H107z" fill="#ef573a"/><path d="M278 15h171v62H278z" fill="#50a944"/><path d="M449 15h172v62H449z" fill="#2182d5"/><path d="M621 15h172v62H621z" fill="#f3eedf"/>
+ <path d="M107 598h171v62H107z" fill="#f3eedf"/><path d="M278 598h171v62H278z" fill="#2182d5"/><path d="M449 598h172v62H449z" fill="#50a944"/><path d="M621 598h172v62H621z" fill="#ef573a"/>
+ <!-- Field markings -->
+ <g fill="none" stroke="#fffdf1" stroke-width="5" opacity=".96"><path d="M126 103h648v473H126z"/><path d="M126 205h648M126 464h648M126 520h648"/><path d="M318 464v112M582 464v112"/></g>
+ <path d="M450 78v520" stroke="#e52c89" stroke-width="8"/><path d="M107 348h686" stroke="#f4e536" stroke-width="7"/>
+ <!-- Team score ticks -->
+ <g fill="#fff" font-family="Arial,sans-serif" font-size="22" font-weight="700" text-anchor="middle"><text x="61" y="145">1</text><text x="61" y="198">2</text><text x="61" y="251">3</text><text x="61" y="304">4</text><text x="61" y="410">5</text><text x="61" y="463">6</text><text x="61" y="516">7</text><text x="61" y="569">8</text><text x="839" y="145">1</text><text x="839" y="198">2</text><text x="839" y="251">3</text><text x="839" y="304">4</text><text x="839" y="410">5</text><text x="839" y="463">6</text><text x="839" y="516">7</text><text x="839" y="569">8</text></g>
+ <g font-family="Arial,sans-serif" font-size="20" font-weight="800" text-anchor="middle"><text x="192" y="54" fill="#fff">ЛАПТА</text><text x="364" y="54" fill="#fff">БОЛЬШАЯ ЛАПТА</text><text x="536" y="54" fill="#fff">БОЛЬШАЯ ЛАПТА</text><text x="707" y="54" fill="#263229">ЛАПТА</text><text x="192" y="637" fill="#27342b">ЛАПТА</text><text x="364" y="637" fill="#fff">БОЛЬШАЯ ЛАПТА</text><text x="536" y="637" fill="#fff">ЛАПТА</text><text x="707" y="637" fill="#fff">БОЛЬШАЯ ЛАПТА</text></g>
+ <rect x="15" y="15" width="870" height="645" rx="17" fill="none" stroke="#ded7c5" stroke-width="3"/>
+</svg>

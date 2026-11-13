@@ -1,0 +1,14 @@
+# Temporary and local working files
+_tmp/
+_docx_qa/
+*.zip
+*.bak
+*.old
+*.tmp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / OS files
+.vscode/
+.idea/
