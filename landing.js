@@ -40,6 +40,9 @@
   let switching = false;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+    // Сразу устанавливаем первую фотографию из массива.
+  hero.style.setProperty('--hero-photo', `url("${photos[0]}")`);
+
   // Загружаем фотографии заранее, чтобы смена фона не показывала пустой кадр.
   photos.slice(1).forEach(src => {
     const image = new Image();
