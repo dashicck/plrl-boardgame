@@ -21,62 +21,61 @@
 
 (() => {
   const hero = document.querySelector('.hero');
-  const dotList = hero?.querySelector('[data-hero-dots]');
-  if (!hero || !dotList) return;
+  if (!hero) return;
 
+  // Только выбранные фотографии; порядок соответствует номерам, выбранным пользователем.
   const photos = [
-    { src: 'assets/hero-bg-10.jpg', label: 'Выбранный фон' },
-    { src: 'assets/hero-running.jpg', label: 'Фото 1' },
-    { src: 'assets/hero-bg-01.jpg', label: 'Фото 2' },
-    { src: 'assets/hero-bg-02.jpg', label: 'Фото 3' },
-    { src: 'assets/hero-bg-03.jpg', label: 'Фото 4' },
-    { src: 'assets/hero-bg-04.jpg', label: 'Фото 5' },
-    { src: 'assets/hero-bg-05.jpg', label: 'Фото 6' },
-    { src: 'assets/hero-bg-06.jpg', label: 'Фото 7' },
-    { src: 'assets/hero-bg-07.jpg', label: 'Фото 8' },
-    { src: 'assets/hero-bg-08.jpg', label: 'Фото 9' },
-    { src: 'assets/hero-bg-09.jpg', label: 'Фото 10' },
-    { src: 'assets/hero-bg-11.jpg', label: 'Фото 11' }
+    'assets/hero-bg-10.jpg',
+    'assets/hero-bg-02.jpg',
+    'assets/hero-bg-03.jpg',
+    'assets/hero-bg-05.jpg',
+    'assets/hero-bg-07.jpg',
+    'assets/hero-bg-11.jpg'
   ];
-  const counter = hero.querySelector('.hero-bg-counter');
-  const dots = photos.map((photo, index) => {
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = 'hero-bg-dot';
-    dot.setAttribute('aria-label', `Показать фон: ${photo.label}`);
-    dot.setAttribute('aria-pressed', String(index === 0));
-    dot.addEventListener('click', () => show(index));
-    dotList.append(dot);
-    return dot;
-  });
-  let active = 0;
-  let switching = false;
 
-  function show(index) {
-    if (index === active || switching) return;
+  const interval = 6500;
+  const fadeDuration = 450;
+  let active = 0;
+  let timer = null;
+  let switching = false;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Загружаем фотографии заранее, чтобы смена фона не показывала пустой кадр.
+  photos.slice(1).forEach(src => {
+    const image = new Image();
+    image.src = src;
+  });
+
+  function showNext() {
+    if (switching || reducedMotion.matches) return;
+    const next = (active + 1) % photos.length;
     switching = true;
-    const photo = photos[index];
     const preload = new Image();
+
     preload.onload = () => {
       hero.classList.add('is-switching');
       window.setTimeout(() => {
-        hero.style.setProperty('--hero-photo', `url("${photo.src}")`);
-        active = index;
-        dots.forEach((dot, dotIndex) => dot.setAttribute('aria-pressed', String(dotIndex === active)));
-        counter.textContent = `${active + 1} / ${photos.length}`;
-        switching = false;
+        hero.style.setProperty('--hero-photo', `url("${photos[next]}")`);
+        active = next;
         hero.classList.remove('is-switching');
-      }, 220);
+        switching = false;
+      }, fadeDuration);
     };
     preload.onerror = () => { switching = false; };
-    preload.src = photo.src;
+    preload.src = photos[next];
   }
 
-  hero.querySelector('[data-hero-prev]')?.addEventListener('click', () => show((active - 1 + photos.length) % photos.length));
-  hero.querySelector('[data-hero-next]')?.addEventListener('click', () => show((active + 1) % photos.length));
-  hero.querySelector('.hero-background-controls')?.addEventListener('keydown', event => {
-    if (event.key === 'ArrowLeft') { event.preventDefault(); show((active - 1 + photos.length) % photos.length); }
-    if (event.key === 'ArrowRight') { event.preventDefault(); show((active + 1) % photos.length); }
+  // Первый фон уже задан стилями; далее фотографии меняются автоматически.
+  if (!reducedMotion.matches) {
+    timer = window.setInterval(showNext, interval);
+  }
+
+  // Если настройка уменьшения движения изменилась во время просмотра,
+  // автоматически останавливаем или возобновляем смену фона.
+  reducedMotion.addEventListener?.('change', event => {
+    if (timer) window.clearInterval(timer);
+    timer = null;
+    if (!event.matches) timer = window.setInterval(showNext, interval);
   });
 })();
 
@@ -106,10 +105,8 @@
     let rolling = false;
 
     const random = (min, max) => Math.random() * (max - min) + min;
-    // Небольшой постоянный наклон оставляет выбранную грань читаемой,
-    // но позволяет увидеть толщину кубика и его боковые рёбра.
     const rotationString = r =>
-        `rotateY(${r.y}deg) rotateX(${r.x}deg) rotateZ(${r.z}deg) rotateX(-9deg) rotateY(-12deg)`;
+        `rotateY(${r.y}deg) rotateX(${r.x}deg) rotateZ(${r.z}deg)`;
 
     dice.forEach(die => {
         const cube = die.querySelector('.die-cube');
