@@ -25,15 +25,15 @@
 
   // Только выбранные фотографии; порядок соответствует номерам, выбранным пользователем.
   const photos = [
-    'assets/hero-bg-10.jpg',
     'assets/hero-bg-02.jpg',
+    'assets/hero-bg-10.jpg',
     'assets/hero-bg-03.jpg',
     'assets/hero-bg-05.jpg',
     'assets/hero-bg-07.jpg',
     'assets/hero-bg-11.jpg'
   ];
 
-  const interval = 6500;
+  const interval = 4500;
   const fadeDuration = 450;
   let active = 0;
   let timer = null;
