@@ -1,4 +1,4 @@
-<!-- ПЛРЛ / подготовка Zero Block / large. Вставлять в HTML-элемент Tilda. Требуется ST100 и настройка window.PLRL_TILDA_CONFIG. -->
+<!-- ПЛРЛ / ВИЗУАЛЬНАЯ ЧАСТЬ Zero Block (без механики продажи) / large. Вставлять в HTML-элемент Tilda. Требуется отдельный штатный блок ST200 с Product ID + ST100 и настройка window.PLRL_TILDA_CONFIG. -->
 <div id="plrl-tilda-product" data-product="large"><div id="product-root"></div></div>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap');
@@ -657,8 +657,8 @@ button{border-radius:8px!important}
 /* Remove the divider above the delivery/payment note on product pages. */
 .pdp .delivery-note{border-top:0!important}
 
-.plrl-qty-hint{font:600 11px Manrope;color:#777a70}
-#plrl-product-root .buyrow{flex-wrap:wrap}
+.plrl-native-commerce-note{font:600 12px Manrope;color:#777a70;line-height:1.5;margin:24px 0 16px}
+
 #plrl-product-root a.buy{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:#18261f}
 #plrl-product-root .buy.secondary{display:inline-flex;align-items:center;justify-content:center}
 }
@@ -674,14 +674,11 @@ const ASSETS=CONFIG.assets || {};
 const asset=path=>ASSETS[path] || '';
 const $=(s,r=ROOT)=>r.querySelector(s);
 const $$=(s,r=ROOT)=>[...r.querySelectorAll(s)];
-const money=value=>new Intl.NumberFormat('ru-RU').format(value)+' ₽';
-const PRODUCTS=window.PRODUCTS={small:{name:'Маленький короб',price:699,size:'Маленький'},large:{name:'Большой короб',price:1299,size:'Большой'}};
-const orderLink=product=>'#order:'+product.name+' ='+product.price;
-function showToast(text){const el=$('.toast');if(!el)return;el.textContent=text;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200);}
+const PRODUCTS={small:{name:'Маленький короб',size:'Маленький'},large:{name:'Большой короб',size:'Большой'}};
   function renderProductPage() {
     const productId = ROOT.dataset.product;
     const root = ROOT.querySelector('#product-root');
-    const product = window.PRODUCTS?.[productId];
+    const product = PRODUCTS[productId];
     if (!root || !product) return;
 
     const otherId = productId === 'small' ? 'large' : 'small';
@@ -725,11 +722,8 @@ function showToast(text){const el=$('.toast');if(!el)return;el.textContent=text;
           <div class="pdp-info">
             <h1>Большая лапта<br><em>в ударе</em></h1>
             <p class="pdp-lead">Увлекательная настольная адаптация традиционной русской игры. Здесь вам предстоит продумывать стратегию, рисковать и радоваться победам!</p>
-            <div class="price">${money(product.price)}</div>
-            <div class="buyrow">
-              <a class="buy" href="${orderLink(product)}" data-add>Добавить в корзину</a><span class="plrl-qty-hint">Количество меняется в корзине</span>
-            </div>
-            <button class="buy secondary" type="button" data-fast>Перейти к оформлению</button>
+            <p class="plrl-native-commerce-note">Цена, наличие и покупка — в товарном блоке Tilda, связанном с Каталогом.</p>
+            <a class="buy" href="#plrl-native-order">Выбрать количество и купить</a>
             <p class="delivery-note">Способ оплаты уточняется.<br>
               <a class="text-link" href="${LINKS[otherId]}">Посмотреть ${productId === 'small' ? 'большой' : 'маленький'} формат</a>
             </p>
@@ -745,7 +739,7 @@ function showToast(text){const el=$('.toast');if(!el)return;el.textContent=text;
           <div class="tab-panel" id="tab-panel"></div>
         </section>
       </main>
-      <div class="toast" aria-live="polite"></div>
+      
     `;
 
     const panels = {
@@ -770,11 +764,6 @@ function showToast(text){const el=$('.toast');if(!el)return;el.textContent=text;
     tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab)));
     activateTab(tabs[0]);
 
-    $('[data-fast]',root).addEventListener('click', () => {
-      const nativeCart = document.querySelector('.t706__carticon');
-      if (nativeCart) nativeCart.click();
-      else showToast('Добавьте товар — корзина откроется после настройки ST100');
-    });
   }
 
 
