@@ -1,0 +1,41 @@
+{
+  "status": "draft-not-applied",
+  "projectId": "5488484",
+  "landingPageId": "390011009",
+  "products": {
+    "large": {
+      "pageId": "393845309",
+      "recordId": "5905398501",
+      "productId": "119874176573",
+      "url": "/lapta-large"
+    },
+    "small": {
+      "pageId": "393982709",
+      "recordId": "5907133401",
+      "productId": "342470682193",
+      "url": "/lapta-small"
+    }
+  },
+  "cart": {
+    "block": "ST100",
+    "autoOpen": false,
+    "icon": false,
+    "persist": true,
+    "delivery": {
+      "label": "Доставка СДЭК",
+      "price": 199,
+      "perOrder": true,
+      "freeThreshold": null
+    },
+    "fields": [
+      "name",
+      "phone",
+      "email",
+      "city",
+      "delivery_address",
+      "comment_optional"
+    ]
+  },
+  "publish": false,
+  "realPayments": false
+}
