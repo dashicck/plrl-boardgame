@@ -1,6 +1,7 @@
 (() => {
   'use strict';
 
+  const IS_TILDA = document.body.dataset.commerce === 'tilda';
   const CART_KEY = 'laptaCart';
   const DELIVERY_PRICE = 199;
   const MAX_QTY = 99;
@@ -67,7 +68,7 @@
       : ['assets/large-box.webp', 'assets/large-set.webp'];
 
     root.innerHTML = `
-      <div class="crumbs"><a href="index.html">Главная</a>　/　Большая лапта в ударе　/　${product.name}</div>
+      <div class="crumbs"><a href="${IS_TILDA ? '/page390011009.html' : 'index.html'}">Главная</a>　/　Большая лапта в ударе　/　${product.name}</div>
       <main>
         <section class="pdp">
           <div class="pdp-media">
@@ -102,18 +103,19 @@
           <div class="pdp-info">
             <h1>Большая лапта<br><em>в ударе</em></h1>
             <p class="pdp-lead">Увлекательная настольная адаптация традиционной русской игры. Здесь вам предстоит продумывать стратегию, рисковать и радоваться победам!</p>
-            <div class="price">${money(product.price)}</div>
+            <div class="price plrl-price">${IS_TILDA ? "Цена загружается" : money(product.price)}</div>
             <div class="buyrow">
-              <div class="quantity" aria-label="Количество">
-                <button type="button" data-minus aria-label="Уменьшить количество">−</button>
+              <div class="quantity plrl-quantity" aria-label="Количество">
+                <button type="button" data-minus class="plrl-minus" aria-label="Уменьшить количество">−</button>
                 <input id="qty" value="1" min="1" max="${MAX_QTY}" step="1" type="number" inputmode="numeric" aria-label="Количество товаров">
-                <button type="button" data-plus aria-label="Увеличить количество">+</button>
+                <button type="button" data-plus class="plrl-plus" aria-label="Увеличить количество">+</button>
               </div>
-              <button class="buy" type="button" data-add>Добавить в корзину</button>
+              <button class="buy plrl-add" type="button" data-add ${IS_TILDA ? 'disabled aria-disabled="true"' : ''}>Добавить в корзину</button>
             </div>
-            <button class="buy secondary" type="button" data-fast>Перейти к оформлению</button>
-            <p class="delivery-note">Способ оплаты уточняется.<br>
-              <a class="text-link" href="${otherId}.html">Посмотреть ${productId === 'small' ? 'большой' : 'маленький'} формат</a>
+            <a class="buy secondary plrl-checkout" href="${IS_TILDA ? '#opencart' : 'checkout.html'}" data-fast>Перейти к оформлению</a>
+            <p class="plrl-status" data-plrl-status role="status" aria-live="polite"></p>
+            <p class="delivery-note">Доставка — 199 ₽ за заказ.<br>
+              <a class="text-link" href="${IS_TILDA ? '/lapta-' + otherId : otherId + '.html'}">Посмотреть ${productId === 'small' ? 'большой' : 'маленький'} формат</a>
             </p>
           </div>
         </section>
@@ -152,6 +154,11 @@
     tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab)));
     activateTab(tabs[0]);
 
+    if (IS_TILDA) {
+      window.PLRLTilda.mount(root, productId);
+      return;
+    }
+
     const quantityInput = $('#qty', root);
     const getQuantity = () => Math.min(MAX_QTY, Math.max(1, Math.floor(Number(quantityInput.value) || 1)));
     $('[data-minus]', root).addEventListener('click', () => {
@@ -163,7 +170,6 @@
     quantityInput.addEventListener('change', () => { quantityInput.value = getQuantity(); });
     $('[data-add]', root).addEventListener('click', () => addToCart(productId, getQuantity()));
     $('[data-fast]', root).addEventListener('click', () => {
-      addToCart(productId, getQuantity());
       window.location.href = 'checkout.html';
     });
   }
